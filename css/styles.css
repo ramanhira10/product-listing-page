@@ -588,6 +588,7 @@ main .products .des-section img {
 
   main .right-section .mobile-row .filter-aera {
     padding-bottom: 25px;
+    display: none;
   }
 
   main .right-section .mobile-row .filter-aera a {

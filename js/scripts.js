@@ -19,6 +19,7 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
   const productCountPH = document.getElementById("productCount");
   const productCountWeb = document.getElementById("product-count");
   const btnShowResults = document.getElementById("btnShowResults");
+  const filterArea = document.getElementById("filter-aera");
   productsDiv.innerHTML = '<div>Loading...</div>';
   productCountPH.innerHTML = "";
   productCountWeb.innerHTML = "";
@@ -75,7 +76,7 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
         productCountPH.innerHTML = productsToShow;
         productCountWeb.innerHTML = productsToShow;
         btnShowResults.innerHTML = `See ${productsToShow} Results`;
-
+        filterArea.style.display = "block";
       });
     } else {
       productsDiv.innerHTML = '<div>No products to show</div>';
@@ -89,6 +90,11 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
 
 const onClickHamburgerMenu = () => document.body.classList.add("toggle");
 const onClickCloseMenu = () => document.body.classList.remove("toggle");
+const onClickFilterResult = evt => {
+  evt.preventDefault();
+  document.body.classList.add("toggle");
+};
+
 const handleSortOptionChange = () => {
 
   console.log("handleSortOptionChange");
@@ -106,8 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnShowResults = document.getElementById("btnShowResults");
   btnShowResults.addEventListener("click", onClickCloseMenu);
 
+  const filterResult = document.getElementById("filterResult");
+  filterResult.addEventListener("click", onClickFilterResult);
+
   const catgoriesListDiv = document.getElementById('categories');
   c = catgoriesListDiv;
-  displayProducts(c);
 
+  const sortProducts = document.getElementById("sortProducts");
+  sortProducts.addEventListener("click", evt => {
+    evt.preventDefault();
+    displayProducts(c);
+  });
+
+  displayProducts(c);
 });
