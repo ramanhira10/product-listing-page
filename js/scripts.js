@@ -20,6 +20,9 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
   const productCountWeb = document.getElementById("product-count");
   const btnShowResults = document.getElementById("btnShowResults");
   productsDiv.innerHTML = '<div>Loading...</div>';
+  productCountPH.innerHTML = "";
+  productCountWeb.innerHTML = "";
+  btnShowResults.innerHTML = "";
 
   try {
     const URL = "https://fakestoreapi.com/products";
@@ -28,11 +31,10 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
     const productsCount = productsInJSON.length;
 
     productsDiv.innerHTML = '';
-    productCountPH.innerHTML = productsCount;
-    productCountWeb.innerHTML = productsCount;
-    btnShowResults.innerHTML = `See ${productsCount} Results`;
+
 
     if (productsCount > 0) {
+      let productsToShow = 0;
       productsInJSON.forEach((product, idx) => {
 
         if (!allCategories.includes(product.category)) {
@@ -67,7 +69,12 @@ const displayProducts = async (catgoriesListDiv, allCheckedCategories = []) => {
                 alt="Wishlist item">
             </div>
           </div>`;
+          productsToShow = productsToShow + 1;
         }
+
+        productCountPH.innerHTML = productsToShow;
+        productCountWeb.innerHTML = productsToShow;
+        btnShowResults.innerHTML = `See ${productsToShow} Results`;
 
       });
     } else {
@@ -87,7 +94,6 @@ const handleSortOptionChange = () => {
   console.log("handleSortOptionChange");
 };
 
-
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOMContentLoaded")
 
@@ -105,6 +111,3 @@ document.addEventListener("DOMContentLoaded", () => {
   displayProducts(c);
 
 });
-
-
-
